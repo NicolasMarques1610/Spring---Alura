@@ -2,10 +2,9 @@ package med.voll.api.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.DTO.DadosEndereco;
+import med.voll.api.aplicacao.dto.EnderecoDTO;
 
 @Embeddable
 @Getter
@@ -21,7 +20,7 @@ public class Endereco {
     private String cidade;
     private String uf;
 
-    public Endereco(DadosEndereco dados) {
+    public Endereco(EnderecoDTO dados) {
         this.logradouro = dados.logradouro();
         this.bairro = dados.bairro();
         this.cep = dados.cep();
