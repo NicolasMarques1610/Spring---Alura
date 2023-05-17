@@ -1,0 +1,6 @@
+mysql -u -root -p
+use vollmed_api
+show tables;
+desc medicos;
+select * from medicos;
+select * from pacientes;
