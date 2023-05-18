@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import med.voll.api.aplicacao.dto.AtualizaPacienteDTO;
 import med.voll.api.aplicacao.dto.ListagemPacienteDTO;
 import med.voll.api.aplicacao.dto.PacienteDTO;
-import med.voll.api.paciente.Paciente;
+import med.voll.api.entity.Paciente;
 import med.voll.api.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

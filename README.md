@@ -1,3 +1,5 @@
+***Primeira Parte - Desenvolvendo uma API REST em Java
+
 *Spring Framework
   É um framework para desenvolvimento de aplicações em Java, muito usado em aplicações Web, podemos definir as depências no arquivo .pom o que facilita o start do projeto. Foco nas configurações. Tem o Spring Security para a segurança lida com controle de autenticação e autorização da aplicação, Spring Data xxx, exemplo JPA, para facilitar o acesso aos dados, Spring MVC para conseguir receber os dados do front end é para desenvolvimento de aplicações Web e API's Rest, Spring Boot que configura tudo facilitando muito já que agiliza a criação do projeto.
 *Objetivos e Tecnologias
@@ -20,3 +22,30 @@
   spring.data.web.sort.sort-parameter=ordem
   Com isso, nas requisições que utilizam paginação, devemos utilizar esses nomes que foram definidos. Por exemplo, para listar os médicos de nossa API trazendo apenas 5 registros da página 2, ordenados pelo e-mail e de maneira decrescente, a URL da requisição deve ser:
   http://localhost:8080/medicos?tamanho=5&pagina=1&ordem=email,desc
+*O que aprendi nessa primeira parte do projeto de desenvolvimento de uma API REST
+  .Criar um projeto Spring Boot utilizando o site do Spring Initializr;
+  .Importar o projeto no IntelliJ e executar uma aplicação Spring Boot pela classe contendo o método main;
+  .Criar uma classe Controller e mapear uma URL nela utilizando as anotações @RestController e @RequestMapping;
+  .Realizar uma requisição de teste no browser acessando a URL mapeada no Controller.
+  .Mapear requisições POST em uma classe Controller;
+  .Enviar requisições POST para a API utilizando o Insomnia;
+  .Enviar dados para API no formato JSON;
+  .Utilizar a anotação @RequestBody para receber os dados do corpo da requisição em um parâmetro no Controller;
+  .Utilizar o padrão DTO (Data Transfer Object), via Java Records, para representar os dados recebidos em uma requisição POST.
+  .Adicionar novas dependências no projeto;
+  .Mapear uma entidade JPA e criar uma interface Repository para ela;
+  .Utilizar o Flyway como ferramenta de Migrations do projeto;
+  .Realizar validações com Bean Validation utilizando algumas de suas anotações, como a @NotBlank.
+  .Utilizar a anotação @GetMapping para mapear métodos em Controllers que produzem dados;
+  .Utilizar a interface Pageable do Spring para realizar consultas com paginação;
+  .Controlar a paginação e a ordenação dos dados devolvidos pela API com os parâmetros page, size e sort;
+  .Configurar o projeto para que os comandos SQL sejam exibidos no console.
+  .Mapear requisições PUT com a anotação @PutMapping;
+  .Escrever um código para atualizar informações de um registro no banco de dados;
+  .Mapear requisições DELETE com a anotação @DeleteMapping;
+  .Mapear parâmetros dinâmicos em URL com a anotação @PathVariable;
+  .Implementar o conceito de exclusão lógica com o uso de um atributo booleano.
+
+***Segunda parte - Aplicando boas práticas e protegendo uma API REST
+
+
