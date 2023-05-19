@@ -7,17 +7,17 @@ import jakarta.validation.constraints.Size;
 // Record é uma nova classe de dados imutável, que oferece uma maneira concisa e declarativa de definir classes de dados
 // com campos, métodos e comportamentos padrão.
 public record EnderecoDTO(
-        @NotBlank
+        @NotBlank(message = "{logradouro.obrigatorio}")
         String logradouro,
-        @NotBlank
+        @NotBlank(message = "{bairro.obrigatorio}")
         String bairro,
-        @NotBlank
-        @Pattern(regexp = "\\d{8}")
+        @NotBlank(message = "{cep.obrigatorio}")
+        @Pattern(regexp = "\\d{8}", message = "{cep.invalido}")
         String cep,
-        @NotBlank
+        @NotBlank(message = "{cidade.obrigatorio}")
         String cidade,
-        @NotBlank
-        @Size(min = 2, max = 2)
+        @NotBlank(message = "{uf.obrigatorio}")
+        @Size(min = 2, max = 2, message = "{uf.invalido}")
         String uf,
         String complemento,
         String numero) {

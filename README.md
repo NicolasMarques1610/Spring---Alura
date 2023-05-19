@@ -3,7 +3,7 @@
 *Spring Framework
   É um framework para desenvolvimento de aplicações em Java, muito usado em aplicações Web, podemos definir as depências no arquivo .pom o que facilita o start do projeto. Foco nas configurações. Tem o Spring Security para a segurança lida com controle de autenticação e autorização da aplicação, Spring Data xxx, exemplo JPA, para facilitar o acesso aos dados, Spring MVC para conseguir receber os dados do front end é para desenvolvimento de aplicações Web e API's Rest, Spring Boot que configura tudo facilitando muito já que agiliza a criação do projeto.
 *Objetivos e Tecnologias
-  O objetivo do curso é usarmos o Spring Boot para desenvolvermos uma API Rest, com algumas funcionalidades. A ideia é desenvolver um CRUD, sendo as quatro operações fundamentais das aplicações: cadastro, listagem, atualização e exclusão de informações. Vamos ver também como aplicar validações das informações que chegam na nossa API, usando o Bean Validation.
+  O objetivo do curso é usarmos o Spring Boot para desenvolvermos uma API Rest, com algumas funcionalidades. A ideia é desenvolver um CRUD (Create, Read, Update, Delete), sendo as quatro operações fundamentais das aplicações: cadastro, listagem, atualização e exclusão de informações. Vamos ver também como aplicar validações das informações que chegam na nossa API, usando o Bean Validation.
   Utilizaremos o Lombok, responsável por fazer a geração de códigos repetitivos, como getters, setters, toString, entre outros. Tudo via anotações para o código ficar menos verboso.
   Usaremos o banco de dados MySQL para armazenar as informações da API e junto com ele utilizaremos a biblioteca Flyway. Isso para termos o controle do histórico de evolução do banco de dados, um conceito que chamamos de Migration.
   Usaremos o Maven para gerenciar as dependências do projeto, e também para gerar o build da nossa aplicação. Será focado na API Rest (apenas no Back-end), então não vai ter front end. Mas para testarmos a API, usaremos o Insomnia, sendo uma ferramenta usada para testes em API. Com ela, conseguimos simular a requisição para a API e verificar se as funcionalidades implementadas estão funcionando.
@@ -48,4 +48,42 @@
 
 ***Segunda parte - Aplicando boas práticas e protegendo uma API REST
 
+*Objetivos
+  .Boas práticas na API referente ao protocolo HTTP: 
+      Faremos ajustes na classe controller, para seguir as boas práticas do protocolo HTTP quanto ao retorno dos códigos HTTP e das respostas que a API devolve.
+  .Tratamento de erros:
+      Eventualmente, pode ocorrer um erro na API, e precisamos entender o que o Spring faz ao ocorrer uma exception enquanto o programa é executado, o que é devolvido como resposta para o cliente da API.
+  .Autenticação/Autorização:
+      Precisamos ter um controle de quem vai enviar as requisições. Isso será feito na aplicação front-end, porém, na API precisamos ter um código que permite o usuário se autenticar, e também ter um controle de acesso de informações públicas e privadas.
+      Aprenderemos a aplicar isso com o Spring Security, sendo um módulo do Spring responsável por monitorar esse controle.
+  .Tokens JWT:
+      No caso, usaremos a autenticação fundamentada em tokens com o padrão JSON Web Token (JWT).
+*Códigos de requisição HTTP
+  O protocolo HTTP (Hypertext Transfer Protocol, RFC 2616) é o protocolo responsável por fazer a comunicação entre o cliente, que normalmente é um browser, e o servidor. Dessa forma, a cada “requisição” feita pelo cliente, o servidor responde se ele obteve sucesso ou não.
+  Os códigos HTTP (ou HTTPS) possuem três dígitos, sendo que o primeiro dígito significa a classificação dentro das possíveis cinco categorias.
+  1XX: Informativo – a solicitação foi aceita ou o processo continua em andamento; 
+  2XX: Confirmação – a ação foi concluída ou entendida;
+  3XX: Redirecionamento – indica que algo mais precisa ser feito ou precisou ser feito para completar a solicitação; 
+  4XX: Erro do cliente – indica que a solicitação não pode ser concluída ou contém a sintaxe incorreta; 
+  5XX: Erro no servidor – o servidor falhou ao concluir a solicitação.
+  Alguns códigos de requisição: 
+  .200 - significa OK e mensagem é "No body returned for response";
+  .201 - código created dizendo que um registro foi criado na API, devolve no corpo da resposta os dados do novo recurso/registro criado e um cabeçalho do protocolo HTTP (Location), esse Location mostra o endereço para que o front-end, ou aplicativo mobile consiga acessar o recurso cadastrado.
+  .204 - no método de excluir é mais adequado e se refere à requisição processada e sem conteúdo na resposta;
+  .400 - erro de validação do bean validation;
+  .403 - é o erro “Proibido”. Significa que o servidor entendeu a requisição do cliente, mas se recusa a processá-la, pois o cliente não possui autorização para isso;
+  .404 - significa que essa URL não te levou a lugar nenhum. Pode ser que a aplicação não exista mais, a URL mudou ou você digitou a URL errada;
+  .422  - Unprocessable Entity, indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes;
+  .500 - status de erro que indica uma dificuldade de processamento do servidor, a partir de uma incompatibilidade ou configuração incorreta;
+  .503 - significa que o serviço acessado está temporariamente indisponível. Causas comuns são um servidor em manutenção ou sobrecarregado. Ataques maliciosos, como o DDoS, causam bastante esse problema.
 
+*O que aprendi
+  .Utilizar a classe ResponseEntity, do Spring, para personalizar os retornos dos métodos de uma classe Controller;
+  .Modificar o código HTTP devolvido nas respostas da API;
+  .Adicionar cabeçalhos nas respostas da API;
+  .Utilizar os códigos HTTP mais apropriados para cada operação realizada na API;
+  .Criar uma classe para isolar o tratamento de exceptions da API, com a utilização da anotação @RestControllerAdvice;
+  .Utilizar a anotação @ExceptionHandler, do Spring, para indicar qual exception um determinado método da classe de tratamento de erros deve capturar;
+  .Tratar erros do tipo 404 (Not Found) na classe de tratamento de erros;
+  .Tratar erros do tipo 400 (Bad Request), para erros de validação do Bean Validation, na classe de tratamento de erros;
+  .Simplificar o JSON devolvido pela API em casos de erro de validação do Bean Validation;

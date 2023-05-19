@@ -1,22 +1,22 @@
-package med.voll.api.entity;
+package med.voll.api.domain.paciente;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.aplicacao.dto.AtualizaMedicoDTO;
-import med.voll.api.aplicacao.dto.MedicoDTO;
-import med.voll.api.endereco.Endereco;
-import med.voll.api.medico.Especialidade;
+import med.voll.api.aplicacao.dto.AtualizaPacienteDTO;
+import med.voll.api.aplicacao.dto.PacienteDTO;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.medico.Medico;
 
-@Table(name = "medicos")
-@Entity(name = "Medico")
+@Table(name = "pacientes")
+@Entity(name = "Paciente")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Medico {
+public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,33 +24,27 @@ public class Medico {
     private String nome;
     private String email;
     private String telefone;
-    private String crm;
-
-    @Enumerated(EnumType.STRING)
-    private Especialidade especialidade;
-
+    private String cpf;
     @Embedded
     private Endereco endereco;
 
     private Boolean ativo;
 
-    public Medico(MedicoDTO dados) {
+    public Paciente(PacienteDTO dados) {
         this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
-        this.crm = dados.crm();
-        this.especialidade = dados.especialidade();
+        this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.endereco());
     }
 
-    public void atualizarInformacoes(AtualizaMedicoDTO dados) {
+    public void atualizarInformacoes(AtualizaPacienteDTO dados) {
         if(dados.nome() != null ) this.nome = dados.nome();
         if(dados.telefone() != null) this.telefone = dados.telefone();
         if(dados.endereco() != null) this.endereco.atualizarInformacoes(dados.endereco());
     }
 
-    // Não é excluir pois nós desabilitamos esse médico mas ele continua salvo no banco de dados
     public void inativar() {
         this.ativo = false;
     }
