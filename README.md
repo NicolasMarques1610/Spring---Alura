@@ -136,6 +136,9 @@
   o servidor processa a requição e devolve a resposta, na próxima requisição o servidor não saberá identificar quem envio a requisição. A autentificação 
   que será feita é através de tokens, usando o JWT - JSON Web Tokens.
   Para criação de hash de senha foi usado o algoritmo BCrypt.
+*Geração do token usando a biblioteca java-jwt
+  api.security.token.secret=${JWT_SECRET:12345678}, esse comando é usado para pegar uma variável de ambiente
+  quando se está fazendo um deploy se caso não tiver é usado o outro valor como secret.
 
 *O que aprendi
   Boas práticas da API: 
@@ -154,4 +157,8 @@
     .Adicionar o Spring Security ao projeto;
     .Funciona o comportamento padrão do Spring Security em uma aplicação;
     .Implementar o processo de autenticação na API, de maneira Stateless, utilizando as classes e configurações do Spring Security.
-    
+  JSON Web Token:
+    .Adicionar a biblioteca Auth0 java-jwt como dependência do projeto;
+    .Utilizar essa biblioteca para realizar a geração de um token na API;
+    .Injetar uma propriedade do arquivo application.properties em uma classe gerenciada pelo Spring, utilizando a anotação @Value;
+    .Devolver um token gerado na API quando um usuário se autenticar nela.
