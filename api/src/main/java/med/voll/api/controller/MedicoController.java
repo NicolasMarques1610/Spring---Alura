@@ -1,7 +1,10 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.aplicacao.dto.*;
+import med.voll.api.domain.dto.medico.AtualizaMedicoDTO;
+import med.voll.api.domain.dto.medico.DetalhamentoMedicoDTO;
+import med.voll.api.domain.dto.medico.ListagemMedicoDTO;
+import med.voll.api.domain.dto.medico.MedicoDTO;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,7 @@ public class MedicoController {
     }
 
     @GetMapping("/{id}")
+    //@Secured("ROLE_ADMIN")
     // com o ResponseEntity conseguimos controlar a resposta devolvida (por exemplo 200 OK)
     public ResponseEntity detalhar(@PathVariable Long id) {
         var medico = repository.findByIdAndAtivoTrue(id);

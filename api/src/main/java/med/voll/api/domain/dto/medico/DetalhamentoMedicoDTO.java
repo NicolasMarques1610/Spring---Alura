@@ -1,4 +1,4 @@
-package med.voll.api.aplicacao.dto;
+package med.voll.api.domain.dto.medico;
 
 import med.voll.api.domain.endereco.Endereco;
 import med.voll.api.domain.medico.Medico;

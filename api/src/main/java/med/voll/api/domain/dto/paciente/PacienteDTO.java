@@ -1,16 +1,13 @@
-package med.voll.api.aplicacao.dto;
+package med.voll.api.domain.dto.paciente;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.dto.endereco.EnderecoDTO;
 
-// Record é uma nova classe de dados imutável, que oferece uma maneira concisa e declarativa de definir classes de dados 
-// com campos, métodos e comportamentos padrão.
-// Usando notações do bean validation
-public record MedicoDTO(
+public record PacienteDTO(
         @NotBlank(message = "{nome.obrigatorio}")
         String nome,
         @NotBlank(message = "{email.obrigatorio}")
@@ -19,13 +16,11 @@ public record MedicoDTO(
         @NotBlank(message = "{telefone.obrigatorio}")
         @Pattern(regexp = "\\d{2} \\d{4,5}-\\d{4}", message = "{telefone.invalido}")
         String telefone,
-        @NotBlank(message = "{crm.obrigatorio}")
-        @Pattern(regexp = "\\d{4,6}", message = "{crm.invalido}")
-        String crm,
-        @NotNull(message = "{especialidade.obrigatorio}")
-        Especialidade especialidade,
+        @NotBlank(message = "{cpf.obrigatorio}")
+        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "{cpf.invalido}")
+        String cpf,
         @NotNull(message = "{endereco.obrigatorio}")
         @Valid
-        EnderecoDTO endereco) {
-
+        EnderecoDTO endereco
+) {
 }

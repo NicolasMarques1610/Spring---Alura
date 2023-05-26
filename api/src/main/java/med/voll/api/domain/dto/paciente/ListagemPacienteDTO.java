@@ -1,4 +1,4 @@
-package med.voll.api.aplicacao.dto;
+package med.voll.api.domain.dto.paciente;
 
 import med.voll.api.domain.paciente.Paciente;
 

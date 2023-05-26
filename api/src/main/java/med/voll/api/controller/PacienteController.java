@@ -1,10 +1,10 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.aplicacao.dto.AtualizaPacienteDTO;
-import med.voll.api.aplicacao.dto.DetalhamentoPacienteDTO;
-import med.voll.api.aplicacao.dto.ListagemPacienteDTO;
-import med.voll.api.aplicacao.dto.PacienteDTO;
+import med.voll.api.domain.dto.paciente.AtualizaPacienteDTO;
+import med.voll.api.domain.dto.paciente.DetalhamentoPacienteDTO;
+import med.voll.api.domain.dto.paciente.ListagemPacienteDTO;
+import med.voll.api.domain.dto.paciente.PacienteDTO;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

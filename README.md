@@ -139,7 +139,18 @@
 *Geração do token usando a biblioteca java-jwt
   api.security.token.secret=${JWT_SECRET:12345678}, esse comando é usado para pegar uma variável de ambiente
   quando se está fazendo um deploy se caso não tiver é usado o outro valor como secret.
-
+  Aqui geramos o token.
+*Controlar o acesso 
+  Aqui fizemos o armazenamento do token pelo cliente, aplicação mobile/front-end, e o envio do token em cada 
+  requisiçao feita e ainda sim, a validadação desse token.
+  Filter é um dos recursos que fazem parte da especificação de Servlets, a qual padroniza o tratamento de 
+  requisições e respostas em aplicações Web no Java. Ou seja, tal recurso não é específico do Spring, podendo 
+  assim ser utilizado em qualquer aplicação Java.
+  É um recurso muito útil para isolar códigos de infraestrutura da aplicação, como, por exemplo, segurança, 
+  logs e auditoria, para que tais códigos não sejam duplicados e misturados aos códigos relacionados às regras 
+  de negócio da aplicação.
+  Precisamos dizer para o spring qual é a ordem dos filtros, se vai primeiro o nosso ou o dele, se não for 
+  especificado primeiro vai o dele, que é ver se o usuário está logado.
 *O que aprendi
   Boas práticas da API: 
     .Utilizar a classe ResponseEntity, do Spring, para personalizar os retornos dos métodos de uma classe Controller;
@@ -162,3 +173,9 @@
     .Utilizar essa biblioteca para realizar a geração de um token na API;
     .Injetar uma propriedade do arquivo application.properties em uma classe gerenciada pelo Spring, utilizando a anotação @Value;
     .Devolver um token gerado na API quando um usuário se autenticar nela.
+  Controle de acesso:
+  Funcionam os Filters em uma requisição;
+    .Implementar um filter criando uma classe que herda da classe OncePerRequestFilter, do Spring;
+    .Utilizar a biblioteca Auth0 java-jwt para realizar a validação dos tokens recebidos na API;
+    .Realizar o processo de autenticação da requisição, utilizando a classe SecurityContextHolder, do Spring;
+    .Liberar e restringir requisições, de acordo com a URL e o verbo do protocolo HTTP.

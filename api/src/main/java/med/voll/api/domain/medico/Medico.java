@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.aplicacao.dto.AtualizaMedicoDTO;
-import med.voll.api.aplicacao.dto.MedicoDTO;
-import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.dto.medico.AtualizaMedicoDTO;
+import med.voll.api.domain.dto.medico.MedicoDTO;
 import med.voll.api.domain.endereco.Endereco;
 
 @Table(name = "medicos")
