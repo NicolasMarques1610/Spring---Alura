@@ -179,3 +179,38 @@
     .Utilizar a biblioteca Auth0 java-jwt para realizar a validação dos tokens recebidos na API;
     .Realizar o processo de autenticação da requisição, utilizando a classe SecurityContextHolder, do Spring;
     .Liberar e restringir requisições, de acordo com a URL e o verbo do protocolo HTTP.
+
+***Terceira parte - Documentação, teste e deploy de uma API
+
+*Objetivos
+  .Funcionalidades de agendamento de consultas;
+  .Documentação da API;
+  .Teste automatizados;
+  .Build do projeto.
+*Códigos para novas funcionalidades
+  .Controller;
+  .DTOs;
+  .Entidade JPA;
+  .Repository;
+  .Migration;
+  .Regras de negócio.
+*Exemplos de como resolver o problema se o usuário escrever os nomes dos atributos no JSON diferente de como ta na API
+  public record DadosCompra(
+  @JsonAlias(“produto_id”) Long idProduto,
+  @JsonAlias(“data_da_compra”) LocalDate dataCompra
+  ){}
+  Podemos fazer dessa forma acima usando JsonAlias que mapeia "apelidos" alternativos para o atributo.
+*Exemplo de como podemos formatar a data
+  @NotNull
+  @Future
+  @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+  LocalDateTime data
+
+*O que aprendi
+  Funcionalidade agendamento de consultas:
+    .Implementar uma nova funcionalidade no projeto;
+    .Avaliar quando é necessário criar uma classe Service na aplicação;
+    .Criar uma classe Service, com o objetivo de isolar códigos de regras de negócio, utilizando para isso a anotação @Service;
+    .Implementar um algoritmo para a funcionalidade de agendamento de consultas;
+    .Realizar validações de integridade das informações que chegam na API;
+    .Implementar uma consulta JPQL (Java Persistence Query Language) complexa em uma interface repository, utilizando para isso a anotação @Query.
