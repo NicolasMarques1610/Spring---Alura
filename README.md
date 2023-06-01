@@ -205,6 +205,37 @@
   @Future
   @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
   LocalDateTime data
+*Padrão Service
+  O Padrão Service é muito utilizado na programação e seu nome é muito comentado. Mas apesar de ser um nome único, 
+  Service pode ser interpretado de várias maneiras: pode ser um Use Case (Application Service); um Domain Service, 
+  que possui regras do seu domínio; um Infrastructure Service, que usa algum pacote externo para realizar tarefas; etc.
+  Apesar da interpretação ocorrer de várias formas, a ideia por trás do padrão é separar as regras de negócio, as regras 
+  da aplicação e as regras de apresentação para que elas possam ser facilmente testadas e reutilizadas em outras partes do sistema.
+  Existem duas formas mais utilizadas para criar Services. Você pode criar Services mais genéricos, responsáveis por todas as 
+  atribuições de um Controller; ou ser ainda mais específico, aplicando assim o S do SOLID: 
+  Single Responsibility Principle (Princípio da Responsabilidade Única). Esse princípio nos diz que uma classe/função/arquivo 
+  deve ter apenas uma única responsabilidade.
+  Mas é importante ficarmos atentos, pois muitas vezes não é necessário criar um Service e, consequentemente, adicionar mais uma camada 
+  e complexidade desnecessária à nossa aplicação. Uma regra que podemos utilizar é a seguinte: se não houverem regras de negócio, 
+  podemos simplesmente realizar a comunicação direta entre os controllers e os repositories da aplicação.
+*Strategy
+  A ideia do Strategy é ter várias classes implementando uma estratégia, mas utilizaríamos apenas uma das estratégias.
+  Aqui não estamos usando só uma das estratégias, estamos chamando todas.
+*Princípios do SOLID
+  SOLID é uma sigla que representa cinco princípios de programação:
+  .Single Responsibility Principle (Princípio da Responsabilidade Única)
+  .Open-Closed Principle (Princípio Aberto-Fechado)
+  .Liskov Substitution Principle (Princípio da Substituição de Liskov)
+  .Interface Segregation Principle (Princípio da Segregação de Interface)
+  .Dependency Inversion Principle (Princípio da Inversão de Dependência)
+  Nesse momento das regras de negócio estamos aplicando no código, de uma vez, três princípios do SOLID.
+  Estamos aplicando os seguintes princípios do SOLID:
+  .Single Responsibility Principle (Princípio da responsabilidade única): porque cada classe de validação tem apenas uma responsabilidade.
+  .Open-Closed Principle (Princípio aberto-fechado): na classe service, AgendadeConsultas, porque ela está fechada para modificação, não 
+  precisamos mexer nela. Mas ela está aberta para extensão, conseguimos adicionar novos validadores apenas criando as classes implementando a interface.
+  .Dependency Inversion Principle (Princípio da inversão de dependência): porque nossa classe service depende de uma abstração, que é a interface, 
+  não depende dos validadores, das implementações especificamente. O módulo de alto nível, a service, não depende dos módulos de baixo nível, que são os validadores.
+  Com isso ganhamos um código fácil de entender, fácil de dar manutenção, fácil de estender e de testar com testes automatizados.
 
 *O que aprendi
   Funcionalidade agendamento de consultas:
@@ -214,3 +245,7 @@
     .Implementar um algoritmo para a funcionalidade de agendamento de consultas;
     .Realizar validações de integridade das informações que chegam na API;
     .Implementar uma consulta JPQL (Java Persistence Query Language) complexa em uma interface repository, utilizando para isso a anotação @Query.
+  Regras de negócio:
+    .Isolar os códigos de validações de regras de negócio em classes separadas, utilizando nelas a anotação @Component do Spring;
+    .Finalizar a implementação do algoritmo de agendamento de consultas;
+    .Utilizar os princípios SOLID para deixar o código da funcionalidade de agendamento de consultas mais fácil de entender, evoluir e testar.

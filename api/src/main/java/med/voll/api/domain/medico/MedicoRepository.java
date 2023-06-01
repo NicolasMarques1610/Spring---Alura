@@ -30,9 +30,21 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> { //Generi
                 select c.medico.id from Consulta c
                 where
                 c.data = :data
+                and
+                c.motivoCancelamento is null
             )
             order by rand()
             limit 1
             """)
     Medico escolherMedicoAleatorioLivreNaData(Especialidade especialidade, LocalDateTime data);
+
+    // metodo feito para dizer se o medico/paciente esta ativo no sistema atraves do id, esse metodo tem a mesma
+    // logica que o existByIdAndAtivoTrue
+//    @Query("""
+//            select m.ativo
+//            from Medico m
+//            where
+//            m.id = :id
+//            """)
+//    Boolean findAtivoById(Long id);
 }

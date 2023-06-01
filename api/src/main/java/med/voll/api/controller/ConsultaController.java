@@ -7,24 +7,38 @@ import med.voll.api.domain.consulta.AgendaDeConsultas;
 import med.voll.api.domain.dto.consulta.AgendamentoConsultaDTO;
 import med.voll.api.domain.dto.consulta.CancelamentoConsultaDTO;
 import med.voll.api.domain.dto.consulta.DetalhamentoConsultaDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("consultas")
 public class ConsultaController {
 
+    @Autowired
     private AgendaDeConsultas agenda;
 
-    @PostMapping
+    @PostMapping("/agendar")
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid AgendamentoConsultaDTO dados) {
-        agenda.agendar(dados);
-        return ResponseEntity.ok(new DetalhamentoConsultaDTO(null, null, null, null));
+        var dto = agenda.agendar(dados);
+        return ResponseEntity.ok(dto);
     }
 
-    @DeleteMapping
+    @GetMapping("/listar")
+    public ResponseEntity<List<DetalhamentoConsultaDTO>> listar() {
+        var consultas = agenda.listar();
+
+        return ResponseEntity.ok(consultas);
+    }
+
+    @DeleteMapping("/cancelar")
     @Transactional
     public ResponseEntity cancelar(@RequestBody @Valid CancelamentoConsultaDTO dados) {
         agenda.cancelar(dados);

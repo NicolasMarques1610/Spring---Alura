@@ -8,6 +8,7 @@ import med.voll.api.domain.dto.medico.MedicoDTO;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -24,8 +25,9 @@ public class MedicoController {
     @Autowired
     private MedicoRepository repository;
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     @Transactional
+//    @ConditionalOnDefaultWebSecurity
     public ResponseEntity cadastrar(@RequestBody @Valid MedicoDTO dados, UriComponentsBuilder uriBuilder) { //requestBody para pegar do corpo da requisiçao
         var medico = new Medico(dados);
         repository.save(medico);
@@ -35,13 +37,13 @@ public class MedicoController {
         return ResponseEntity.created(uri).body(new DetalhamentoMedicoDTO(medico)); // recebe a url com o id do medico criado e o body com o detalhes do medico
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<Page<ListagemMedicoDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) { // podemos escrever o tamanho da pagina no metodo ou na propria url, se tiver na url sobreescreve o metodo
         var page = repository.findAllByAtivoTrue(paginacao).map(ListagemMedicoDTO::new); // converti no map uma lista de medicos para uma listagem de medicos
         return ResponseEntity.ok(page); //retorno o 200 mais a mensagem com a page de medico
     }
 
-    @PutMapping
+    @PutMapping("/atualizar")
     @Transactional // Como tem essa assinatura não é necessário chamar o repository pois faz automaticamente no banco de dados
     public ResponseEntity atualizar(@RequestBody @Valid AtualizaMedicoDTO dados) {
         var medico = repository.getReferenceById(dados.id());
@@ -58,7 +60,7 @@ public class MedicoController {
 //        repository.deleteById(id);
 //    }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     @Transactional
     // com o ResponseEntity conseguimos controlar a resposta devolvida (por exemplo 200 OK)
     public ResponseEntity excluir(@PathVariable Long id) {
@@ -68,7 +70,7 @@ public class MedicoController {
         return ResponseEntity.noContent().build(); // noContent é o 204 e buildamos o objeto com o build
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detalhar/{id}")
     //@Secured("ROLE_ADMIN")
     // com o ResponseEntity conseguimos controlar a resposta devolvida (por exemplo 200 OK)
     public ResponseEntity detalhar(@PathVariable Long id) {

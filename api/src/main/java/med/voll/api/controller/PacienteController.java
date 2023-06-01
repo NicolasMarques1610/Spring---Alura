@@ -23,7 +23,7 @@ public class PacienteController {
     @Autowired
     private PacienteRepository repository;
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid PacienteDTO dados, UriComponentsBuilder uriBuilder) {
         var paciente = new Paciente(dados);
@@ -34,13 +34,13 @@ public class PacienteController {
         return ResponseEntity.created(uri).body(new DetalhamentoPacienteDTO(paciente));
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<Page<ListagemPacienteDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) { // podemos escrever o tamanho da pagina no metodo ou na propria url, se tiver na url sobreescreve o metodo
         var page = repository.findAllByAtivoTrue(paginacao).map(ListagemPacienteDTO::new);
         return ResponseEntity.ok(page); // converti no map uma lista de medicos para uma listagem de medicos
     }
 
-    @PutMapping
+    @PutMapping("/atualizar")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid AtualizaPacienteDTO dados) {
         var paciente = repository.getReferenceById(dados.id());
@@ -49,7 +49,7 @@ public class PacienteController {
         return ResponseEntity.ok(new DetalhamentoPacienteDTO(paciente));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
         var paciente = repository.findByIdAndAtivoTrue(id);
@@ -58,7 +58,7 @@ public class PacienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detalhar/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var paciente = repository.findByIdAndAtivoTrue(id);
         return ResponseEntity.ok(new DetalhamentoPacienteDTO(paciente));
