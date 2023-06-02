@@ -236,7 +236,14 @@
   .Dependency Inversion Principle (Princípio da inversão de dependência): porque nossa classe service depende de uma abstração, que é a interface, 
   não depende dos validadores, das implementações especificamente. O módulo de alto nível, a service, não depende dos módulos de baixo nível, que são os validadores.
   Com isso ganhamos um código fácil de entender, fácil de dar manutenção, fácil de estender e de testar com testes automatizados.
-
+*Benefícios da documentação
+  A documentação gerada seguindo o padrão OpenAPI permite que ferramentas, como o Swagger UI, possam ser utilizadas para realizar testes na API.
+  A documentação facilita muito a vida de quem deseja se integrar à uma API Rest, pois expõe as suas funcionalidades e como elas devem ser consumidas.
+*Teste automatizados com Spring Boot
+  Foi testado os controllers que tem os endpoints e o repository que são as queries, como também a parte das regras 
+  de negócio.
+  Quando fazemos testes na interface repository utilizando o spring dataJPA todos os testes são feitos de forma isolada
+  os valores inseridos não interferem nos outros teste porque acontece um rollback depois de feito o teste.
 *O que aprendi
   Funcionalidade agendamento de consultas:
     .Implementar uma nova funcionalidade no projeto;
@@ -255,3 +262,9 @@
     .Acessar os endereços que disponibilizam a documentação da API nos formatos yaml e html;
     .Utilizar o Swagger UI para visualizar e testar uma API Rest;
     .Configurar o JWT na documentação gerada pelo SpringDoc.
+  Testes Automatizados:
+    .Escrever testes automatizados em uma aplicação com Spring Boot;
+    .Escrever testes automatizados de uma interface Repository, seguindo a estratégia de usar o mesmo banco de dados que a aplicação utiliza;
+    .Sobrescrever propriedades do arquivo application.properties, criando outro arquivo chamado application-test.properties que seja carregado apenas ao executar os testes, utilizando para isso a anotação @ActiveProfiles;
+    .Escrever testes automatizados de uma classe Controller, utilizando a classe MockMvc para simular requisições na API;
+    .Testar cenários de erro 400 e código 200 no teste de uma classe controller.
