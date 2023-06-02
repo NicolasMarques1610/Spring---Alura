@@ -2,6 +2,7 @@ package med.voll.api.controller;
 
 // Trecho de código suprimido
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.AgendaDeConsultas;
 import med.voll.api.domain.dto.consulta.AgendamentoConsultaDTO;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("consultas")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     @Autowired

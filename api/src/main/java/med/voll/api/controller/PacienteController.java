@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.dto.paciente.AtualizaPacienteDTO;
 import med.voll.api.domain.dto.paciente.DetalhamentoPacienteDTO;
@@ -35,6 +36,7 @@ public class PacienteController {
     }
 
     @GetMapping("/listar")
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<Page<ListagemPacienteDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) { // podemos escrever o tamanho da pagina no metodo ou na propria url, se tiver na url sobreescreve o metodo
         var page = repository.findAllByAtivoTrue(paginacao).map(ListagemPacienteDTO::new);
         return ResponseEntity.ok(page); // converti no map uma lista de medicos para uma listagem de medicos
@@ -42,6 +44,7 @@ public class PacienteController {
 
     @PutMapping("/atualizar")
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity atualizar(@RequestBody @Valid AtualizaPacienteDTO dados) {
         var paciente = repository.getReferenceById(dados.id());
         paciente.atualizarInformacoes(dados);
@@ -51,6 +54,7 @@ public class PacienteController {
 
     @DeleteMapping("/excluir/{id}")
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity excluir(@PathVariable Long id) {
         var paciente = repository.findByIdAndAtivoTrue(id);
         paciente.inativar();
@@ -59,6 +63,7 @@ public class PacienteController {
     }
 
     @GetMapping("/detalhar/{id}")
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var paciente = repository.findByIdAndAtivoTrue(id);
         return ResponseEntity.ok(new DetalhamentoPacienteDTO(paciente));

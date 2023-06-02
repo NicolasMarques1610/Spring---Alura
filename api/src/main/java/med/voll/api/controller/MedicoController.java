@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.dto.medico.AtualizaMedicoDTO;
 import med.voll.api.domain.dto.medico.DetalhamentoMedicoDTO;
@@ -38,6 +39,7 @@ public class MedicoController {
     }
 
     @GetMapping("/listar")
+    @SecurityRequirement(name = "bearer-key") // esse nome bearer-key esta na SpringDocConfigurations, isso é feito para os metodos no swagger pedirem o token
     public ResponseEntity<Page<ListagemMedicoDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) { // podemos escrever o tamanho da pagina no metodo ou na propria url, se tiver na url sobreescreve o metodo
         var page = repository.findAllByAtivoTrue(paginacao).map(ListagemMedicoDTO::new); // converti no map uma lista de medicos para uma listagem de medicos
         return ResponseEntity.ok(page); //retorno o 200 mais a mensagem com a page de medico
@@ -45,6 +47,7 @@ public class MedicoController {
 
     @PutMapping("/atualizar")
     @Transactional // Como tem essa assinatura não é necessário chamar o repository pois faz automaticamente no banco de dados
+    @SecurityRequirement(name = "bearer-key") // esse nome bearer-key esta na SpringDocConfigurations, isso é feito para os metodos no swagger pedirem o token
     public ResponseEntity atualizar(@RequestBody @Valid AtualizaMedicoDTO dados) {
         var medico = repository.getReferenceById(dados.id());
         medico.atualizarInformacoes(dados);
@@ -62,6 +65,7 @@ public class MedicoController {
 
     @DeleteMapping("/excluir/{id}")
     @Transactional
+    @SecurityRequirement(name = "bearer-key") // esse nome bearer-key esta na SpringDocConfigurations, isso é feito para os metodos no swagger pedirem o token
     // com o ResponseEntity conseguimos controlar a resposta devolvida (por exemplo 200 OK)
     public ResponseEntity excluir(@PathVariable Long id) {
         var medico = repository.findByIdAndAtivoTrue(id);
@@ -71,6 +75,7 @@ public class MedicoController {
     }
 
     @GetMapping("/detalhar/{id}")
+    @SecurityRequirement(name = "bearer-key") // esse nome bearer-key esta na SpringDocConfigurations, isso é feito para os metodos no swagger pedirem o token
     //@Secured("ROLE_ADMIN")
     // com o ResponseEntity conseguimos controlar a resposta devolvida (por exemplo 200 OK)
     public ResponseEntity detalhar(@PathVariable Long id) {
