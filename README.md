@@ -244,6 +244,11 @@
   de negócio.
   Quando fazemos testes na interface repository utilizando o spring dataJPA todos os testes são feitos de forma isolada
   os valores inseridos não interferem nos outros teste porque acontece um rollback depois de feito o teste.
+*Native Image
+  Imagem nativa é uma tecnologia utilizada para compilar uma aplicação Java, incluindo todas as suas dependências, gerando um arquivo binário 
+  executável que pode ser executado diretamente no sistema operacional, sem a necessidade de se utilizar a JVM. Mesmo sem executar numa JVM, a 
+  aplicação também contará com os recursos dela, como gerenciamento de memória, garbage collector e controle de execução de threads.
+  Para saber mais detalhes sobre a tecnologia de imagens nativas acesse a documentação no site: https://www.graalvm.org/native-image
 *O que aprendi
   Funcionalidade agendamento de consultas:
     .Implementar uma nova funcionalidade no projeto;
@@ -268,3 +273,9 @@
     .Sobrescrever propriedades do arquivo application.properties, criando outro arquivo chamado application-test.properties que seja carregado apenas ao executar os testes, utilizando para isso a anotação @ActiveProfiles;
     .Escrever testes automatizados de uma classe Controller, utilizando a classe MockMvc para simular requisições na API;
     .Testar cenários de erro 400 e código 200 no teste de uma classe controller.
+  Build do projeto:
+    .Funciona o build de uma aplicação com Spring Boot;
+    .Utilizar arquivos de propriedades específicos para cada profile, alterando em cada arquivo as propriedades que precisam ser modificadas;
+    .Configurar informações sensíveis da aplicação, como dados de acesso ao banco de dados, via variáveis de ambiente;
+    .Realizar o build do projeto via Maven;
+    .Executar a aplicação via terminal, com o comando java -jar, passando as variáveis de ambiente como parâmetro.
